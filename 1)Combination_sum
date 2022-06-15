@@ -1,0 +1,35 @@
+
+
+class Solution {
+public:
+    
+    void rec(int i,vector<int>& sub, vector<vector<int>>& ans, vector<int>& cand, int t)
+    {
+        if(i==cand.size())
+        {
+            if(t==0)
+            {
+                ans.push_back(sub);
+            }
+           return ;
+        }
+        
+        if(cand[i]<=t)                             // Take number but dont increase the index
+        {
+            sub.push_back(cand[i]);
+            rec(i,sub,ans,cand,t-cand[i]);
+            sub.pop_back();
+        }
+        rec(i+1,sub,ans,cand,t);                  // Dont take the number but increase the index   
+    }
+    
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> ans;
+        vector<int> sub;
+        rec(0,sub,ans,candidates,target);
+        return ans;
+    } 
+};
+
+T.C. - 2^k*k    (k=average length of combination)
+S.C. - k*x
