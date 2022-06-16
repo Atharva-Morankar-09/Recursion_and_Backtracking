@@ -1,0 +1,33 @@
+
+class Solution {
+public:
+    
+    void comb(int i, vector<int>& sub, vector<vector<int>>& ans, vector<int> cand, int t)
+    {
+        if(t==0)
+        {
+            ans.push_back(sub);
+            return ;
+        }
+        
+        for(int j=i;j<cand.size();j++)
+        {
+            if(j>i && cand[j-1]==cand[j]){continue;}          // Check if previous and present is same or not, if same then skip so tht we can hve unique elements.
+            if(cand[j]>t){break;}                             // if value is greater tht means all values after will also be greater so break from the loop.
+            sub.push_back(cand[j]);
+            comb(j+1,sub,ans,cand,t-cand[j]);
+            sub.pop_back();
+        }
+    }
+    
+    vector<vector<int>> combinationSum2(vector<int>& cand, int target) {
+        sort(cand.begin(),cand.end());
+        vector<vector<int>> ans;
+        vector<int> sub;
+        comb(0,sub,ans,cand,target);
+        return ans;
+    }
+};
+
+T.C. : 2^n * k (k=avg length of all sequences)
+S.C. : k * x   (x=number of combinations)
