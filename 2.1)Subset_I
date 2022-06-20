@@ -1,0 +1,84 @@
+
+#Subset sum 1 (GFG):
+
+class Solution
+{
+public:
+    
+    void subSum(int i, int sum, vector<int>& ans, vector<int> arr, int N)
+    {
+        if(i==N)
+        {
+            ans.push_back(sum);
+            return ;
+        }
+        
+        subSum(i+1,sum+arr[i],ans,arr,N);
+        
+        subSum(i+1,sum,ans,arr,N);
+    }
+
+    vector<int> subsetSums(vector<int> arr, int N)
+    {
+        vector<int> ans;
+        int sum=0;
+        subSum(0,sum,ans,arr,N);
+        sort(ans.begin(),ans.end());
+        return ans;
+    }
+};
+
+T.C. : O(2^n + 2^nLog(2^n) 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Subsets(Leetcode) : 
+
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> ans;
+        vector<int> sub;
+        rec(0,sub,ans,nums);
+        return ans;
+    }
+    
+    void rec(int i, vector<int>& sub, vector<vector<int>>& ans, vector<int> nums)
+    {
+        ans.push_back(sub);
+        
+        for(int j=i;j<nums.size();j++)
+        {
+            sub.push_back(nums[j]);
+            rec(j+1,sub,ans,nums);
+            sub.pop_back();
+        }
+    }
+};
+
+
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> ans;
+        vector<int> sub;
+        rec(0,sub,ans,nums);
+        return ans;
+    }
+    
+    void rec(int i, vector<int>& sub, vector<vector<int>>& ans, vector<int> nums)
+    {
+        if(i==nums.size())
+        {
+            for(auto it:sub){cout<<it<<" ";}
+            cout<<endl;
+            ans.push_back(sub);
+            return ;
+        }
+        sub.push_back(nums[i]);
+        rec(i+1,sub,ans,nums);
+        sub.pop_back();
+        rec(i+1,sub,ans,nums);
+    }
+};
+
