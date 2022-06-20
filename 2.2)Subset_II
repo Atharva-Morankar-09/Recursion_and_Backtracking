@@ -1,0 +1,72 @@
+
+#Subsets 2(Leetcode):
+
+class Solution {
+public:
+    
+    void rec(int i, vector<int>& sub, vector<vector<int>>& ans, vector<int> nums)
+    {
+        ans.push_back(sub);
+        
+        for(int j=i;j<nums.size();j++)
+        {
+            if(j>i && nums[j]==nums[j-1])
+            {
+                continue ;
+            }
+            sub.push_back(nums[j]);
+            rec(j+1,sub,ans,nums);
+            sub.pop_back();
+        }
+    }
+    
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        vector<vector<int>> ans;
+        vector<int> sub;
+        sort(nums.begin(),nums.end());
+        rec(0,sub,ans,nums);
+        return ans;
+    }
+};
+
+T.C. : 2^n x n (n=time to copy subsets)
+S.C. : 2^n n k (k=avg length)
+Auxillary space : O(n)
+
+class Solution {
+public:
+    
+    void subs(int i, vector<int>& sub, vector<vector<int>>& ans, vector<int> nums)
+    {
+        if(i==nums.size())
+        {
+            bool f=false;
+            for(int j=0;j<ans.size();j++)
+            {
+                if(ans[j]==sub){f=true;break;}
+            }
+            if(f==false)
+            {
+                ans.push_back(sub);
+            }
+            return ;
+            //ans.push_back(sub);
+            //return ;
+        }
+        
+        sub.push_back(nums[i]);
+        subs(i+1,sub,ans,nums);
+        sub.pop_back();
+        subs(i+1,sub,ans,nums);
+    }
+    
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        vector<vector<int>> ans;
+        vector<int> sub;
+        subs(0,sub,ans,nums);
+        //sort(ans.begin(),ans.end());
+        //ans.erase(unique(ans.begin(),ans.end()),ans.end());
+        return ans;
+    }
+};
