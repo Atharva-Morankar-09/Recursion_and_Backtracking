@@ -1,0 +1,23 @@
+
+class Solution{
+    public:
+    // You need to complete this function
+    long long int ans=0;
+    // avoid space at the starting of the string in "move disk....."
+    long long toh(int N, int s, int d, int h) {
+         
+         if(N>0)
+         {
+            
+            toh(N-1,s,h,d);
+            cout<<"move disk "<<N<<" from rod "<<s<<" to rod "<<d<<endl;
+            ans++;
+            toh(N-1,h,d,s);
+         }
+        return ans; 
+    }
+
+};
+
+
+or pow(2,n)-1 is the number of steps required
